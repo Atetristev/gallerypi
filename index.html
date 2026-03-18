@@ -1,12 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>Website Pi Saya</title>
+    <meta charset="UTF-8">
+    <title>Galeri Foto Pi Saya</title>
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 </head>
-<body>
-  <h1>Halo! Ini adalah Website 
-aplikasi Pi saya.</h1>
-  <p>Selamat datang di galeri 
-foto saya.</p>
+<body style="text-align: center; font-family: Arial; padding-top: 50px;">
+
+    <h1>Selamat Datang di Galeri Pi</h1>
+    <div id="status">Sedang menghubungkan ke Pi...</div>
+    
+    <hr>
+    <div id="gallery" style="margin-top: 20px;">
+        <p>Foto akan muncul di sini.</p>
+        <img src="https://picsum.photos/300/200" style="border-radius: 10px; border: 2px solid #ddd;">
+    </div>
+
+    <script>
+        // 2. Inisialisasi SDK Pi (Gunakan sandbox: true untuk tes)
+        Pi.init({ version: "2.0", sandbox: true });
+
+        // 3. Fungsi Login Otomatis
+        Pi.authenticate(['username'], function(payment) {
+            // Bagian ini untuk fungsi pembayaran nanti
+        }).then(function(auth) {
+            // Jika berhasil login, tampilkan nama user
+            document.getElementById('status').innerHTML = "Halo, <b>" + auth.user.username + "</b>! Selamat datang di galeri.";
+        }).catch(function(error) {
+            document.getElementById('status').innerHTML = "Gagal login ke Pi. Pastikan buka lewat Pi Browser.";
+            console.error(error);
+        });
+    </script>
 </body>
 </html>
+
